@@ -47,6 +47,7 @@ class Event extends React.Component {
     const { self } = this.props;
     let content;
     switch (verb) {
+
       case "roundStarted":
         content = <div className="content">Round {roundId} started</div>;
         break;
@@ -59,6 +60,15 @@ class Event extends React.Component {
           </div>
         );
         break;
+        case "movedItem":
+            content = (
+                <div className="content">
+                    <Author player={subject} self={self} /> moved{" "}
+                    <div className="object">{object}</div> to{" "}
+                    <div className="target">Room {target}</div>.
+                </div>
+            );
+            break;
       case "draggingStudent":
         content = (
           <div className="content">
@@ -67,7 +77,15 @@ class Event extends React.Component {
           </div>
         );
         break;
-      case "releasedStudent":
+        case "draggingItem":
+            content = (
+                <div className="content">
+                    <Author player={subject} self={self} /> started moving{" "}
+                    <div className="object">{object}</div>.
+                </div>
+            );
+            break;
+      case "releasedItem":
         content = (
           <div className="content">
             <Author player={subject} self={self} /> released{" "}
@@ -75,6 +93,14 @@ class Event extends React.Component {
           </div>
         );
         break;
+        case "releasedStudent":
+            content = (
+                <div className="content">
+                    <Author player={subject} self={self} /> released{" "}
+                    <div className="object">{object}</div> without moving it.
+                </div>
+            );
+            break;
       case "playerSatisfaction":
         content = (
           <div className="content">

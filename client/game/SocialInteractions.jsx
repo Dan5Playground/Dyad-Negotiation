@@ -1,6 +1,7 @@
 import React from "react";
 import EventLog from "./EventLog";
 import ChatLog from "./ChatLog";
+import Timer from "./Timer";
 
 export default class SocialInteractions extends React.Component {
   renderPlayer(player, self = false) {
@@ -52,13 +53,11 @@ export default class SocialInteractions extends React.Component {
           <div className="players bp3-card">
             {this.renderPlayer(player, true)}
             {otherPlayers.map(p => this.renderPlayer(p))}
+              <div>
+                  <Timer stage={stage} />
+              </div>
           </div>
 
-          <div className="total-score bp3-card">
-            <h6 className='bp3-heading'>Total Score</h6>
-
-            <h2 className='bp3-heading'>{game.get("cumulativeScore") || 0}</h2>
-          </div>
         </div>
 
         <EventLog events={events} stage={stage} player={player} />

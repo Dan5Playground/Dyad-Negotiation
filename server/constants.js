@@ -827,3 +827,34 @@ export const stepTwoData = [
     study: "pilot2"
   }
 ];
+
+// Dan : negotiation setting, need to cover the same conditions
+// as the facebook data - only the most competitive cases
+export const negotiationData = [
+    // for practice
+    [{name:"ball", quantity: 2, value: 3 },
+     {name:"hat", quantity: 2, value: 1 },
+     {name:"book", quantity: 1, value: 2}],
+    // for experiment
+    [{name:"lamp", quantity: 2, value: 1 },
+        {name:"painting", quantity:3, value: 2 },
+        {name:"record", quantity: 1, value: 2}],
+    [{name:"lamp", quantity: 1, value: 1 },
+        {name:"painting", quantity:1, value: 5 },
+        {name:"record", quantity: 2, value: 2}]
+
+]
+
+export const constrainedMSG = {positive : [
+    "It’s important that we are both happy with an agreement.",
+        "We should try to split things evenly.",
+        "We should each get our most valuable item.",
+        "We should try harder to find a deal that benefits us both.",
+        "Why don’t you make an offer?"],
+    negative :["I gave a little here; you give a little next time.",
+        "Accept this or there will be consequences.",
+        "This is the last offer. Take it or leave it.",
+        "This is the very best offer possible.",
+        "Your offer sucks.",
+        "I can’t go any lower than this.",
+        "There’s hardly any time left to negotiate!"]}

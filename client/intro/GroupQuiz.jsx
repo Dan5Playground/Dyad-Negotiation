@@ -46,7 +46,7 @@ export default class GroupQuiz extends React.Component {
     event.preventDefault();
 
     //it should be this.state.nParticipants !== "3" but we don't have "treatment" in QUIZ
-    if (
+    /*if (
       this.state.nParticipants !== "3" ||
       this.state.scoreOption !== "all" ||
       this.state.idle !== "100" ||
@@ -67,9 +67,9 @@ export default class GroupQuiz extends React.Component {
         message:
           "Sorry, you have one or more mistakes. Please ensure that you answer the questions correctly, or go back to the instructions"
       });
-    } else {
+    } else {*/
       this.props.onNext();
-    }
+    //}
   };
 
   render() {

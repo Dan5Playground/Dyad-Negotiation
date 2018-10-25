@@ -77,7 +77,7 @@ export default class IndividualQuiz extends React.Component {
                   className="bp3-input"
                   type="number"
                   min="-10"
-                  max="10"
+                  max="200"
                   step="1"
                   dir="auto"
                   name="largeError"

@@ -3,6 +3,7 @@ import React from "react";
 import Room from "./Room.jsx";
 import Timer from "./Timer.jsx";
 import {HTMLTable} from "@blueprintjs/core";
+import Division from "./Division.jsx"
 
 export default class Task extends React.Component {
   constructor(props) {
@@ -47,97 +48,52 @@ export default class Task extends React.Component {
 
   render() {
     const { game, stage, player } = this.props;
-
+    // Dan : get other people
+      // //const otherPlayers = _.reject(game.players, p => p._id === player._id);
     const task = stage.get("task");
     const violatedConstraints = stage.get("violatedConstraints") || [];
+    const negoSetting = stage.get("negoSetting");
+    const roomName = []
 
     return (
       <div className="task">
-        <div className="left">
-          <div className="info">
-            <Timer stage={stage} />
-            <div className="score">
-              <h5 className='bp3-heading'>Score</h5>
 
-              <h2 className='bp3-heading'>{stage.get("score")}</h2>
-            </div>
-          </div>
-
-          <div className="constraints">
-            {stage.name === "practice" ? (
-              <p>
-                <strong style={{ color: "blue" }}>
-                  This is practice round and the Score will not count
-                </strong>
-              </p>
-            ) : (
-              ""
-            )}
-            <h5 className='bp3-heading'>Constraints</h5>
-            <ul>
-              {task.constraints.map(constraint => {
-                const failed = violatedConstraints.includes(constraint._id);
-                return (
-                  <li key={constraint._id} className={failed ? "failed" : ""}>
-                    {failed ? (
-                      <span className="bp3-icon-standard bp3-icon-cross" />
-                    ) : (
-                      <span className="bp3-icon-standard bp3-icon-dot" />
-                    )}
-                    {constraint.pair.join(" and ")} {constraint.text}.
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          <div className="payoff">
-            <h5 className='bp3-heading'>Payoff</h5>
-            <HTMLTable className="bp3-table">
-              <thead>
-                <tr>
-                  <th>Rooms</th>
-                  {task.rooms.map(room => <th key={room}>{room}</th>)}
-                </tr>
-              </thead>
-              <tbody>
-                {task.students.map(student => (
-                  <tr key={student}>
-                    <th>Student {student}</th>
-                    {task.rooms.map(room => (
-                      <td
-                        className={
-                          stage.get(`student-${student}-room`) === room
-                            ? "active"
-                            : null
-                        }
-                        key={room}
-                      >
-                        {task.payoff[student][room]}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </HTMLTable>
-          </div>
-        </div>
 
         <div className="board">
+            <div className="bp3-input-group">
+                <div className="payoff">
+                    <HTMLTable className="bp3-table">
+                        <caption><strong>Payoff Table</strong></caption>
+                        <thead>
+                        <tr>
+                            <th>Objects</th>
+                            {negoSetting.map(issue => <th key={issue.name}>{issue.name}</th>)}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr key="payoffValue">
+                            <th>Value (points/item)</th>
+                            {negoSetting.map(issue => <td key={issue.name}>{issue.value}</td>)}
+                        </tr>
+                        </tbody>
+                    </HTMLTable>
+                </div>
+
+            </div>
           <div className="all-rooms">
-            <Room
-              room="deck"
-              stage={stage}
-              game={game}
-              player={player}
-              isDeck
-            />
+              <Division
+                  room="deck"
+                  stage={stage}
+                  game={game}
+                  player={player}
+                  isDeck
+              />
 
             <div className="rooms">
-              {task.rooms.map(room => (
-                <Room
-                  key={room}
-                  room={room}
+              {game.players.map(player => (
+                <Division
+                  key={player._id + 'room'}
+                  room={player._id + 'room'}
                   stage={stage}
                   game={game}
                   player={player}

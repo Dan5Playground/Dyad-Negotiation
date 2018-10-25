@@ -8,7 +8,7 @@ import Empirica from "meteor/empirica:core";
 Empirica.onGameStart((game, players) => {
   console.debug("game ", game._id, " started");
 
-  const names = ["Blue", "Green", "Pink", "Yellow"]; // for the players names to match avatar color
+  const names = ["Negotiator A", "Negotiator B", "Pink", "Yellow"]; // for the players names to match avatar color
   const avatarNames = ["Colton", "Aaron", "Alex", "Tristan"]; // to do more go to https://jdenticon.com/#icon-D3
   const nameColor = ["#3D50B7", "#70A945", "#DE8AAB", "A59144"]; // similar to the color of the avatar
 
@@ -30,7 +30,7 @@ Empirica.onRoundStart((game, round, players) => {});
 Empirica.onStageStart((game, round, stage, players) => {
   console.debug("Round ", stage.name, "game", game._id, " started");
   const team = game.get("team");
-  console.log("is it team?", team);
+  //console.log("is it team?", team);
 
   //initiate the score for this round (because everyone will have the same score, we can save it at the round object
   stage.set("score", 0);
@@ -52,6 +52,22 @@ Empirica.onStageStart((game, round, stage, players) => {
     stage.set(`student-${student}-room`, "deck");
     stage.set(`student-${student}-dragger`, null);
   });
+
+  // Dan : add the init values for negotiation issues
+    const negoIssues = stage.get("negoSetting");
+    const objectList = []
+    // Dan : get all the objects
+    negoIssues.forEach(issue => {
+        const objName = issue.name;
+        _.times(issue.quantity, i => {
+            objectList.push(objName+i.toString());
+        })});
+
+    objectList.forEach(item => {
+      console.log('init-${item}');
+        stage.set(`item-${item}-room`, "deck");
+        stage.set(`item-${item}-dragger`, null);
+    });
 
   players.forEach(player => {
     player.set("satisfied", false);
@@ -181,6 +197,8 @@ Empirica.onSet((
       const room = stage.get(`student-${student}-room`);
       assignments[room].push(student);
     });
+
+
 
     //check for constraint violations
     const violationIds = getViolations(stage, assignments);

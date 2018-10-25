@@ -9,10 +9,10 @@ export default class Consent extends React.Component {
     return (
       <Centered>
         <div className="consent bp3-ui-text">
-          <h2 className="bp3-heading"> Microsoft Research Project Participation Consent Form </h2>
+          <h2 className="bp3-heading"> Participation Consent Form </h2>
           <p>
             This research project has been reviewed and approved by the
-            Microsoft Research Ethics Advisory Board.
+            Northeastern University Ethics Advisory Board.
           </p>
           <h5 className="bp3-heading">INTRODUCTION</h5>
           <p>
