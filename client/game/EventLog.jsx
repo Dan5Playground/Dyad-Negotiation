@@ -77,14 +77,6 @@ class Event extends React.Component {
           </div>
         );
         break;
-        case "draggingItem":
-            content = (
-                <div className="content">
-                    <Author player={subject} self={self} /> started moving{" "}
-                    <div className="object">{object}</div>.
-                </div>
-            );
-            break;
       case "releasedItem":
         content = (
           <div className="content">

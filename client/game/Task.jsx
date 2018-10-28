@@ -4,6 +4,7 @@ import Room from "./Room.jsx";
 import Timer from "./Timer.jsx";
 import {HTMLTable} from "@blueprintjs/core";
 import Division from "./Division.jsx"
+import ConstrainedMSG from "./ConstrainedMessage"
 
 export default class Task extends React.Component {
   constructor(props) {
@@ -60,7 +61,7 @@ export default class Task extends React.Component {
 
 
         <div className="board">
-            <div className="bp3-input-group">
+            <div className="all-rooms">
                 <div className="payoff">
                     <HTMLTable className="bp3-table">
                         <caption><strong>Payoff Table</strong></caption>
@@ -86,22 +87,34 @@ export default class Task extends React.Component {
                   stage={stage}
                   game={game}
                   player={player}
+
                   isDeck
               />
 
             <div className="rooms">
-              {game.players.map(player => (
+              {game.players.map(p => (
                 <Division
-                  key={player._id + 'room'}
-                  room={player._id + 'room'}
+                  key={p._id + '-room'}
+                  room={p._id + '-room'}
                   stage={stage}
                   game={game}
-                  player={player}
+                  player={p}
+                  isSelf = {p._id === player._id}
+                  currentPlayer = {player._id}
+
                 />
               ))}
             </div>
           </div>
-
+            {/* All the messages conponent*/}
+            <div className="all-rooms">
+                <ConstrainedMSG
+                objects = {negoSetting}
+                stage={stage}
+                game={game}
+                player={player}
+                />
+            </div>
           <div className="response">
               <button
                 type="button"
@@ -121,7 +134,7 @@ export default class Task extends React.Component {
               onClick={this.handleSatisfaction.bind(this, true)}
               disabled={!this.state.activeButton}
             >
-              Satisfied
+              Accept Offer
             </button>
           </div>
         </div>

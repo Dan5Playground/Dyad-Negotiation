@@ -61,7 +61,9 @@ export default class SocialInteractions extends React.Component {
         </div>
 
         <EventLog events={events} stage={stage} player={player} />
-        <ChatLog messages={messages} stage={stage} player={player} />
+
+          {// if chat is enbaled, add this..
+              /*<ChatLog messages={messages} stage={stage} player={player} />*/}
       </div>
     );
   }

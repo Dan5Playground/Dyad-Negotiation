@@ -64,7 +64,6 @@ Empirica.onStageStart((game, round, stage, players) => {
         })});
 
     objectList.forEach(item => {
-      console.log('init-${item}');
         stage.set(`item-${item}-room`, "deck");
         stage.set(`item-${item}-dragger`, null);
     });

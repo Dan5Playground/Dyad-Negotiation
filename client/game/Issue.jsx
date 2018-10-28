@@ -39,11 +39,11 @@ export default class Issue extends React.Component {
 
         //if dropped into non-allowed area
         if (e.dataTransfer.dropEffect === "none") {
-            stage.append("log", {
+            /*stage.append("log", {
                 verb: "releasedItem",
                 subjectId: player._id,
                 object: item
-            });
+            });*/
         }
     };
 

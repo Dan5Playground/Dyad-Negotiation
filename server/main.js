@@ -57,7 +57,9 @@ Empirica.gameInit((game, treatment, players) => {
         const stage = round.addStage({
             name: "negotiation",
             displayName: "Negotiation",
-            durationInSeconds: game.treatment.stageDuration // 5 mins used in IAGO
+            // Dan : for debuging, change it to a longer time
+
+            durationInSeconds: 30*60//game.treatment.stageDuration // 5 mins used in IAGO
         });
         //stage.set("task", taskSequence[i]);
         stage.set("negoSetting", taskSetting[0]);
