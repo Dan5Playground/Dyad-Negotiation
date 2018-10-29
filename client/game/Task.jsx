@@ -1,9 +1,6 @@
 import React from "react";
-
-import Room from "./Room.jsx";
-import Timer from "./Timer.jsx";
-import {HTMLTable} from "@blueprintjs/core";
 import Division from "./Division.jsx"
+import {HTMLTable} from "@blueprintjs/core";
 import ConstrainedMSG from "./ConstrainedMessage"
 
 export default class Task extends React.Component {
@@ -26,6 +23,7 @@ export default class Task extends React.Component {
 
     //if everyone submitted then, there is nothing to handle
     if (player.stage.submitted) {
+        console.log("they both agree");
       return;
     }
 
@@ -51,10 +49,9 @@ export default class Task extends React.Component {
     const { game, stage, player } = this.props;
     // Dan : get other people
       // //const otherPlayers = _.reject(game.players, p => p._id === player._id);
-    const task = stage.get("task");
-    const violatedConstraints = stage.get("violatedConstraints") || [];
+
     const negoSetting = stage.get("negoSetting");
-    const roomName = []
+
 
     return (
       <div className="task">
@@ -73,8 +70,8 @@ export default class Task extends React.Component {
                         </thead>
                         <tbody>
                         <tr key="payoffValue">
-                            <th>Value (points/item)</th>
-                            {negoSetting.map(issue => <td key={issue.name}>{issue.value}</td>)}
+                            <th>Value (points per item)</th>
+                            {negoSetting.map(issue => <td key={issue.name}>{issue.value + " points"}</td>)}
                         </tr>
                         </tbody>
                     </HTMLTable>
@@ -87,7 +84,6 @@ export default class Task extends React.Component {
                   stage={stage}
                   game={game}
                   player={player}
-
                   isDeck
               />
 
@@ -98,23 +94,13 @@ export default class Task extends React.Component {
                   room={p._id + '-room'}
                   stage={stage}
                   game={game}
-                  player={p}
+                  player={player}
                   isSelf = {p._id === player._id}
-                  currentPlayer = {player._id}
-
                 />
               ))}
             </div>
           </div>
-            {/* All the messages conponent*/}
-            <div className="all-rooms">
-                <ConstrainedMSG
-                objects = {negoSetting}
-                stage={stage}
-                game={game}
-                player={player}
-                />
-            </div>
+
           <div className="response">
               <button
                 type="button"
@@ -124,7 +110,7 @@ export default class Task extends React.Component {
                 onClick={this.handleSatisfaction.bind(this, false)}
                 disabled={!this.state.activeButton}
               >
-                Unsatisfied
+                Reject Offer
               </button>
             <button
               type="button"
@@ -137,6 +123,15 @@ export default class Task extends React.Component {
               Accept Offer
             </button>
           </div>
+            {/* All the messages conponent*/}
+            <div className="all-rooms">
+                <ConstrainedMSG
+                    objects = {negoSetting}
+                    stage={stage}
+                    game={game}
+                    player={player}
+                />
+            </div>
         </div>
       </div>
     );

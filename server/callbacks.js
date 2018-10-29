@@ -2,7 +2,7 @@ import Empirica from "meteor/empirica:core";
 
 // //// Avatar stuff //////
 
-// onGameStart is triggered opnce per game before the game starts, and before
+// onGameStart is triggered once per game before the game starts, and before
 // the first onRoundStart. It receives the game and list of all the players in
 // the game.
 Empirica.onGameStart((game, players) => {
@@ -35,6 +35,7 @@ Empirica.onStageStart((game, round, stage, players) => {
   //initiate the score for this round (because everyone will have the same score, we can save it at the round object
   stage.set("score", 0);
   stage.set("chat", []); //todo: I need to check if they are in team first
+    // Dan : first log when this round start
   stage.set("log", [
     {
       verb: "roundStarted",
@@ -80,9 +81,11 @@ Empirica.onStageStart((game, round, stage, players) => {
 // onStageEnd is triggered after each stage.
 // It receives the same options as onRoundEnd, and the stage that just ended.
 Empirica.onStageEnd((game, round, stage, players) => {
+  // Dan : this game only contains one round and one stage.
+
   console.debug("Round ", stage.name, "game", game._id, " ended");
 
-  const currentScore = stage.get("score");
+  /*const currentScore = stage.get("score");
   const optimalScore = stage.get("task").optimal;
 
   if (currentScore === optimalScore) {
@@ -98,7 +101,7 @@ Empirica.onStageEnd((game, round, stage, players) => {
     const cumScore = game.get("cumulativeScore") || 0;
     const scoreIncrement = currentScore > 0 ? Math.round(currentScore) : 0;
     game.set("cumulativeScore", Math.round(scoreIncrement + cumScore));
-  }
+  }*/
 });
 
 // onRoundEnd is triggered after each round.
@@ -109,8 +112,11 @@ Empirica.onRoundEnd((game, round, players) => {});
 // It receives the same options as onGameStart.
 Empirica.onGameEnd((game, players) => {
   console.debug("The game", game._id, "has ended");
+  // Dan : need another mechanisim to calculate rewards and points.
+
+
   //computing the bonus for everyone (in this game, everyone will get the same value)
-  const conversionRate = game.treatment.conversionRate
+  /*const conversionRate = game.treatment.conversionRate
     ? game.treatment.conversionRate
     : 1;
 
@@ -132,7 +138,7 @@ Empirica.onGameEnd((game, players) => {
       player.set("bonus", bonus);
       player.set("cumulativeScore", game.get("cumulativeScore"));
     }
-  });
+  });*/
 });
 
 // ===========================================================================
@@ -156,7 +162,8 @@ Empirica.onGameEnd((game, players) => {
 
 // // onSet is called when the experiment code call the .set() method
 // // on games, rounds, stages, players, playerRounds or playerStages.
-Empirica.onSet((
+// Dan : don't need to check anything. comment it out for performance
+/*Empirica.onSet((
   game,
   round,
   stage,
@@ -230,9 +237,9 @@ Empirica.onSet((
     });
   }
 });
-
+*/
 //helpers
-function getScore(task, assignments, nViolations) {
+/*function getScore(task, assignments, nViolations) {
   let score = 0;
   Object.keys(assignments).forEach(room => {
     assignments[room].forEach(student => {
@@ -305,7 +312,7 @@ function getViolations(stage, assignments) {
   });
 
   return violatedConstraintsIds;
-}
+}*/
 
 // // onSet is called when the experiment code call the `.append()` method
 // // on games, rounds, stages, players, playerRounds or playerStages.

@@ -25,6 +25,7 @@ export default class EventLog extends React.Component {
               key={i}
               event={event}
               self={event.subject ? player._id === event.subject._id : null}
+              isToSelf = {event.subject ? player._id === event.target : null}
             />
           ))}
         </div>
@@ -44,7 +45,7 @@ class Event extends React.Component {
       state,
       at
     } = this.props.event;
-    const { self } = this.props;
+    const { self, isToSelf } = this.props;
     let content;
     switch (verb) {
 
@@ -64,8 +65,13 @@ class Event extends React.Component {
             content = (
                 <div className="content">
                     <Author player={subject} self={self} /> moved{" "}
-                    <div className="object">{object}</div> to{" "}
-                    <div className="target">Room {target}</div>.
+                    <div className="object">{"a " + object.replace(/[0-9]/g, '')}</div> to{" "}
+                    {target === "Undecided"? <div className="target"> undecided</div> : null}
+                    {self && isToSelf && target !== "Undecided"? <div className="target"> yourself</div> : null}
+                    {self && !isToSelf && target !== "Undecided"? <div className="target"> the opponent</div> : null}
+                    {!self && isToSelf && target !== "Undecided"? <div className="target"> you</div> : null}
+                    {!self && !isToSelf && target !== "Undecided"? <div className="target"> himself/herself</div> : null}
+                    .
                 </div>
             );
             break;
@@ -97,12 +103,38 @@ class Event extends React.Component {
         content = (
           <div className="content">
             <Author player={subject} self={self} /> {self ? "are" : "is"}{" "}
-            <div className="object">{state}</div> with the answer
+            <div className="object">{state}</div> with the offer
           </div>
         );
         break;
+        case "justification":
+            content = (
+                <div className="content">
+                    <Author player={subject} self={self} /> said : {" "}
+                    <div className="object">{target}</div>
+                </div>
+            );
+            break;
+        case "emoji":
+            content = (
+                <div className="content">
+                    <Author player={subject} self={self} /> sent : {" "}
+                    <img src={target} width ="15px" height = "15px"/>
+                </div>
+            );
+            break;
+            case "preference":
+        content = (
+            <div className="content">
+                <Author player={subject} self={self} /> said : {" "}
+                <div className="object">{target}</div>
+            </div>
+        );
+        break;
+
+
       default:
-        console.error(`Unknown Event: ${verb}`);
+        console.log(`Unknown Event: ${verb}`);
 
         return null;
     }

@@ -4,6 +4,7 @@ import "./callbacks.js";
 import "./bots.js";
 import { stepOneData, stepTwoData, constrainedMSG, negotiationData}
       from "./constants";
+import React from "react";
 
 // gameInit is where the structure of a game is defined.
 // Just before every game starts, once all the players needed are ready, this
@@ -26,14 +27,25 @@ Empirica.gameInit((game, treatment, players) => {
   game.set("nOptimalSolutions", 0); // will count how many times they've got the optimal answer
   game.set("justStarted", true); // I use this to play the sound on the UI when the game starts
   game.set("team", players.length > 1);
+
+
   // Dan : the messages are the same for everyone, add to game
     game.set("constrainedMSG", constrainedMSG);
+    game.set("testBool", false);
+    let taskSetting = _.shuffle(negotiationData);
+    let objectList = [];
+    taskSetting[0].forEach(issue => {
+        objectList.push(issue.name);
+    });
+
+    game.set("issueList", objectList);
+
 
   //we don't know the sequence yet
   let taskSequence = game.treatment.stepOne ? stepOneData : stepTwoData;
   // Dan : add different negotiation setting here
     // Dan : don't have practice cases
-  let taskSetting = _.shuffle(negotiationData);
+
 
 
   if (game.treatment.shuffleTaskOrder) {
@@ -59,10 +71,11 @@ Empirica.gameInit((game, treatment, players) => {
             displayName: "Negotiation",
             // Dan : for debuging, change it to a longer time
 
-            durationInSeconds: 30*60//game.treatment.stageDuration // 5 mins used in IAGO
+            durationInSeconds: game.treatment.stageDuration // 5 mins used in IAGO, 300*60//
         });
         //stage.set("task", taskSequence[i]);
         stage.set("negoSetting", taskSetting[0]);
+        //stage.set("msgs", constrainedMSG);
       stage.set("task", taskSequence[i]);
     });
 });

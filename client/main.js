@@ -10,17 +10,7 @@ import Empirica from "meteor/empirica:core";
 import Consent from "./intro/Consent.jsx";
 import GroupExitSurvey from "./exit/GroupExitSurvey.jsx";
 import IndividualExitSurvey from "./exit/IndividualExitSurvey.jsx";
-import Overview from "./intro/Overview.jsx";
-import TaskDetails from "./intro/TaskDetails.jsx";
-import ConstraintsDetails from "./intro/ConstraintsDetails.jsx";
-import RoomArrangements from "./intro/RoomArrangements";
 import IagoIntro from "./intro/IagoIntro"
-import TeamDetails from "./intro/TeamDetails.jsx";
-import SocialInteractionDetails from "./intro/SocialInteractionDetails.jsx";
-import MoreAboutBonus from "./intro/MoreAboutBonus.jsx";
-import UIOverview from "./intro/UIOverview.jsx";
-import GroupQuiz from "./intro/GroupQuiz.jsx";
-import IndividualQuiz from "./intro/IndividualQuiz.jsx";
 import SimpleQuiz from "./intro/SimpleQuiz.jsx";
 
 import Round from "./game/Round.jsx";
@@ -37,6 +27,7 @@ Empirica.introSteps((game, treatment) => {
   //const steps = [Overview, TaskDetails, ConstraintsDetails, RoomArrangements];
   // Dan : the intro should be similar to IAGO
     const steps = [IagoIntro]
+
   /*if (game.treatment.playerCount > 1) {
     steps.push(TeamDetails, SocialInteractionDetails);
   }

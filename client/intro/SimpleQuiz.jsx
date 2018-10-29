@@ -8,8 +8,9 @@ export default class Quiz extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nParticipants: this.props.game.treatment.playerCount,
-      nStories: ""
+      nParticipants: 0,
+        duration: 0,
+        mostValue: ""
     };
   }
 
@@ -28,8 +29,9 @@ export default class Quiz extends React.Component {
     const { game } = this.props;
     console.log("Submitted the quiz");
       if (
-          this.state.nStories !== "3" ||
-          this.state.nParticipants !== game.treatment.playerCount
+          this.state.mostValue !== "1" ||
+          this.state.nParticipants !== (game.treatment.playerCount -1).toString()||
+          this.state.duration !== (game.treatment.stageDuration / 60).toString()
       ) {
           AlertToaster.show({
               message:
@@ -44,7 +46,7 @@ export default class Quiz extends React.Component {
 
   render() {
     const { hasPrev, onPrev, game } = this.props;
-    const { nParticipants, nStories}
+    const { nParticipants, duration, mostValue}
     = this.state;
     return (
       <Centered>
@@ -53,25 +55,72 @@ export default class Quiz extends React.Component {
           <form onSubmit={this.handleSubmit}>
               <div className="bp3-form-group">
                   <label className="bp3-label" htmlFor="number-of-participants">
-                      1. How many stories do you need to write in this task?
+                      1. How many opponents are you going to interact with?
                   </label>
                   <div className="bp3-form-content">
                       <input
                           id="nParticipants"
                           className="bp3-input"
                           type="number"
-                          min="-10"
+                          min="0"
                           max="10"
                           step="1"
                           dir="auto"
-                          name="nStories"
-                          value={nStories}
+                          name="nParticipants"
+                          value={nParticipants}
                           onChange={this.handleChange}
                           required
                       />
                   </div>
               </div>
+              <div className="bp3-form-group">
+                  <label className="bp3-label" htmlFor="number-of-participants">
+                      2. What item is worth the most to you?
+                  </label>
+                  <RadioGroup
+                      name="mostValue"
+                      label="What item is worth the most to you? (Hint: value = points/item * item quality)"
+                      onChange={this.handleChange}
+                      selectedValue={mostValue}
+                  >
+                      <Radio
+                          label="Painting"
+                          value="1"
+                          className={"pt-inline"}
+                      />
+                      <Radio
+                          label="Lamp"
+                          value="2"
+                          className={"pt-inline"}
+                      />
+                      <Radio
+                          label="Record"
+                          value="3"
+                          className={"pt-inline"}
+                      />
 
+                  </RadioGroup>
+              </div>
+              <div className="bp3-form-group">
+                  <label className="bp3-label" htmlFor="length-of-negotiation">
+                      3. How long do you have to reach an agreement with the opponent?
+                  </label>
+                  <div className="bp3-form-content">
+                      <input
+                          id="duration"
+                          className="bp3-input"
+                          type="number"
+                          min="0"
+                          max="10"
+                          step="1"
+                          dir="auto"
+                          name="duration"
+                          value={duration}
+                          onChange={this.handleChange}
+                          required
+                      /> minutes
+                  </div>
+              </div>
 
 
 

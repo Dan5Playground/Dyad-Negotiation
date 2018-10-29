@@ -1,7 +1,5 @@
 import React from "react";
 import Issue from "./Issue.jsx"
-import Division from "./Division.jsx"
-import Room from "../game/Room";
 
 export default class MakeOffer extends React.Component {
     state = { hovered: false };

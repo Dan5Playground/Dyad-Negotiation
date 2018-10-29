@@ -49,7 +49,7 @@ export default class IndividualExitSurvey extends React.Component {
     );
   };
 
-  exitForm = () => {
+  exitForm = (game) => {
     const {
       timeReasonable,
       uiProblems,
@@ -256,7 +256,7 @@ export default class IndividualExitSurvey extends React.Component {
         <div className="exit-survey">
           {this.exitMessage(player, game)}
           <hr />
-          {this.exitForm()}
+          {this.exitForm(game)}
         </div>
       </Centered>
     );

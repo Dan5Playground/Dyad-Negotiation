@@ -1,13 +1,12 @@
 import React from "react";
 
 import { Centered } from "meteor/empirica:core";
-import {Button, HTMLTable} from "@blueprintjs/core";
-import MakeOffer from "./MakeOffer.jsx"
+
 
 
 export default class IagoIntro extends React.Component {
     render() {
-        const { hasPrev, hasNext, onNext, onPrev, treatment } = this.props;
+        const { hasPrev, hasNext, onNext, onPrev, treatment, game } = this.props;
         const sampleIssues =
             [
                 {name:"ball", quantity: 2, value: 3 },
@@ -32,6 +31,17 @@ export default class IagoIntro extends React.Component {
                         </p>
                     </div>
                     <h2>What you need to do:</h2>
+                    { game.treatment.freeText?
+                        <div>
+                            <p>
+                                <strong>Negotiate</strong> with another Tuker to divide
+                            the objects listing below to get the <strong>MOST </strong>
+                            points. You can type in the message box as shown in the picture.
+                            You will have <strong > 5 minutes</strong> to come to an agreement.
+                            </p>
+
+                        </div>
+                        :
                     <ul>
                         <li>
                             <strong>Negotiate</strong> with another Tuker to divide
@@ -40,7 +50,7 @@ export default class IagoIntro extends React.Component {
                             offers and accept offer. You will have <strong > 5
                             minutes</strong> to come to an agreement.
 
-                            {/*<img src = "./resources/objects/ball.png" />*/}
+                            {/*<img src = "./resources/objects/ball.png" />
                             <HTMLTable className="bp3-table">
                                 <caption><strong>Payoff Table</strong></caption>
                                 <thead>
@@ -55,22 +65,28 @@ export default class IagoIntro extends React.Component {
                                         {sampleIssues.map(issue => <td key={issue.name}>{issue.value}</td>)}
                                     </tr>
                                 </tbody>
-                            </HTMLTable>
-                            <MakeOffer
+                            </HTMLTable>*/}
+                            {/*<MakeOffer
                                 key={"offerIntro"}
                                 issues = {sampleIssues}
-                            />
+                            />*/}
+                            <div style={{margin : "10px 2px 10px 2px"}}>
+                                <img src = "./resources/UI/offer.png" width = "500px"/>
+                            </div>
 
                         </li>
                         <li>
                             <strong>Ask Questions or justify your actions</strong> to your opponent by
                             clicking the messages listed as the following.
 
-                            <div className="bp3-card">
+                            {/*<div className="bp3-card">
                                 <button className="bp3-button">Ask your opponent's preference</button>
                                 <button className="bp3-button">Tell your preference</button>
                                 <button className="bp3-button">Justify your action</button>
 
+                            </div>*/}
+                            <div style={{margin : "10px 2px 10px 2px"}}>
+                                <img src = "./resources/UI/message.png" width = "600px"/>
                             </div>
                         </li>
                         <li>
@@ -93,19 +109,22 @@ export default class IagoIntro extends React.Component {
                         <li>
                             Everything you do will appear in the chat log on the right side of
                             the screen so you can look it over.
+                            <div style={{margin : "10px 2px 10px 2px"}}>
+                                <img src = "./resources/UI/Log.png" width="400px"/>
+                            </div>
                         </li>
-                    </ul>
+                    </ul>}
 
                     <h2>Rewards:</h2>
                     <ul>
-                        <li>You will get <span style={{color:"red"}}>$0.5</span> by finishing
+                        <li>You will get <span style={{color:"red"}}>$0.50</span> by finishing
                             this task no matter you reach an agreement or not. </li>
-                        <li><strong>Bonus :</strong>If you reach an agreement within 5 mins,
+                        <li><strong>Bonus :</strong>If you reach an agreement within 5 minutes,
                             each point you have at the end of the game will give you one entry
                             into a lottery on MTurk for one of several<span
-                                style={{color:"red"}}>$10</span> bonus prizes.<strong>The more
+                                style={{color:"red"}}> $10.00 </span> bonus prizes.<strong>The more
                                 points you have, the more likely you are to win!</strong></li>
-                        <li>If your opponent doesn't show up after 15 minutes, you will get $0.3
+                        <li>If your opponent doesn't show up after 15 minutes, you will get $0.30
                             for compensation of your time. </li>
                     </ul>
 
