@@ -14,7 +14,7 @@
     "history": "^4.7.2",
     "identicon.js": "^2.3.2",
     "meteor-node-stubs": "0.4.1",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "prop-types": "^15.6.1",
     "react": "^16.5.2",
     "react-browser-detection": "^1.2.0",
